@@ -3,6 +3,7 @@ const { searchPlugin } = require('@vuepress/plugin-search')
 const path = require('path')
 
 module.exports = {
+  base:"/TTQ/",
   dest:path.resolve(__dirname,'../../docs'),
   lang: 'zh-CN',
   title: 'Hello 甜甜圈~',
