@@ -21,6 +21,8 @@
 
 
 
+
+
 ## Vue Router
 
 - 动态路由
@@ -61,6 +63,8 @@
 
 - 运行时版本：不支持template模板，需要打包的时候提前编译
 - 完整版：包含运行时和编译器，体积比运行时版大10k左右，程序运行的时候把模板转换成render函数
+
+
 
 
 
@@ -135,13 +139,13 @@
 - 观察者模式是由具体目标调度，比如当事件触发，Dep就会去调用观察者的方法，所以观察者模式的订阅者与发布者之间是存在依赖的
 - 发布/订阅模式由统一调度中心调用，因此发布者和订阅者不需要知道对方的存在
 
-![1656386713441](C:\Users\bottle\AppData\Roaming\Typora\typora-user-images\1656386713441.png)
+![](./.vuepress/public/images/model.png)
 
 
 
 ### Vue响应式原理模拟
 
-![1656400369193](C:\Users\bottle\AppData\Roaming\Typora\typora-user-images\1656400369193.png)
+![](./.vuepress/public/images/vue-1.png)
 
 
 
@@ -158,7 +162,7 @@
 
   **结构**
 
-![1656400717893](C:\Users\bottle\AppData\Roaming\Typora\typora-user-images\1656400717893.png)
+![](./.vuepress/public/images/vue-2.png)
 
 
 
@@ -172,7 +176,7 @@
 
 **结构**
 
-![1656412640892](C:\Users\bottle\AppData\Roaming\Typora\typora-user-images\1656412640892.png)
+![](./.vuepress/public/images/observer.png)
 
 
 
@@ -186,7 +190,7 @@
 
 **结构**
 
-![1656414605560](C:\Users\bottle\AppData\Roaming\Typora\typora-user-images\1656414605560.png)
+![](./.vuepress/public/images/compiler.png)
 
 
 
@@ -197,17 +201,17 @@
 - 收集依赖，添加观察者（watcher）
 - 通知所以观察者
 
-![1656416910407](C:\Users\bottle\AppData\Roaming\Typora\typora-user-images\1656416910407.png)
+![](./.vuepress/public/images/dep-1.png)
 
 **结构**
 
-![1656417000294](C:\Users\bottle\AppData\Roaming\Typora\typora-user-images\1656417000294.png)
+![](./.vuepress/public/images/dep-2.png)
 
 
 
 #### Watcher
 
-![1656417685943](C:\Users\bottle\AppData\Roaming\Typora\typora-user-images\1656417685943.png)
+![](./.vuepress/public/images/watcher-1.png)
 
 **功能**
 
@@ -216,7 +220,7 @@
 
 **结构**
 
-![1656418331191](C:\Users\bottle\AppData\Roaming\Typora\typora-user-images\1656418331191.png)
+![](./.vuepress/public/images/watcher-2.png)
 
 
 
@@ -224,5 +228,5 @@
 
 整体流程
 
-![1656504539346](C:\Users\bottle\AppData\Roaming\Typora\typora-user-images\1656504539346.png)
+![](./.vuepress/public/images/summarize.png)
 
