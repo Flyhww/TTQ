@@ -90,6 +90,17 @@ MVVM表示的是Model-View-ViewModel
 
 
 
+### Vue Router
+
+#### 模式：
+
+- hash：URL中#号后面的内容作为路径地址
+- history
+
+
+
+
+
 ### 什么是Vuex
 
 - Vuex是专门为Vuex.js设计的状态管理库
@@ -147,6 +158,20 @@ MVVM表示的是Model-View-ViewModel
 - 闭包的本质：函数在执行的时候会放到一个执行栈上当函数执行完毕之后会从执行栈移除，但是堆上的作用域成员因为被外部引用不能释放，因此内部函数依然可以访问外部函数的成员
 - 闭包的好处：延长了外部函数的作用范围
 
+
+
+### 作用域
+
+作用域：即变量和函数生效（能被访问）的区域或集合
+
+作用域分为：
+
+- 全局作用域
+- 函数作用域
+- 块级作用域
+
+
+
 ### 柯里化（currying)
 
 - 当一个函数有多个参数的时候先传递一部分参数调用它（这部分参数以后永远不变）
@@ -154,10 +179,154 @@ MVVM表示的是Model-View-ViewModel
 
 #### lodash中的柯里化函数
 
+ 柯里化是把一个多参数函数转化成一个嵌套的一元函数的过程 
+
 - 功能：创建一个函数，该函数接收一个或多个func的函数，如果func所需要的参数都被提供则执行func并返回执行的结果。否则继续返回函数并等待接收剩余的参数。
 - 参数：需要柯里化的函数
 - 返回值：柯里化后的函数
 
 
 
+### 原型和原项链
+
+怎么获取一个对象的原型？
+
+Object.getPrototypeOf
+
+原型：每个函数都有一个特殊的属性叫做原型`prototype`
+
+原项链：原型对象也可能拥有原型，并从中继承方法和属性，一层一层，以此类推。这种关系被称为原项链
+
+总结：
+
+- 一切对象都是继承`Object`对象，`Object`对象直接继承根源对象null
+- 一切函数对象（包括`Object`对象），都是继承`Function`对象
+- `Function`对象的`__proto__`会指向自己的原型对象，最终还是继承`Object`对象
+
+
+
+### 深拷贝和浅拷贝的区别？
+
+#### 浅拷贝
+
+如果属性是基本类型，拷贝的就是基本类型的值，如果属性是引用类型，拷贝的就是引用类型的地址
+
+即浅拷贝是拷贝一层，深层次的引用类型则共享内存地址。
+
+**实现方式：**
+
+- Object.assign
+- concat
+- slice
+- 拓展运算符（...）
+
+#### 深拷贝
+
+深拷贝是开辟一个新的栈，两个对象属性完全想相同，但是对应两个不同的地址，修改一个对象的属性，不会改变另一个对象的属性。
+
+**实现方式：**
+
+- JSON.stringify()
+- _.clonrDeep
+- jQuery.extend
+- 手写循环递归
+
+
+
+### 数组方法
+
+| 数组分类/标准 | 改变自身方法                                     | 不改变自身方法                                               | 遍历方法（不改变自身）                                  |
+| ------------- | ------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------- |
+| ES5及以前     | pop、push、reverse、shift、sort、splice、unshift | concat、join、slice、toString、toLocateString、indexOf、lastIndexOf | forEach、every、some、map、filiter、reduce、reduceRight |
+| ES6/7/8       | copyWithin、fill                                 | includes、toSource                                           | entries、find、findIndex、keys、values                  |
+
+
+
+### 说说New操作符具体干了什么？
+
+- 创建一个新的对象obj
+- 将对象和构造函数通过原项链连接起来
+- 将构造函数中的this绑定到新建的对象obj中
+- 根据构造函数返回类型做判断，如果是原始值则被忽略，如果是返回对象，需要正常处理
+
+
+
+### bind、call、apply的区别？
+
+apply： `fn.apply(obj, [1, 2])`
+
+call：`fn.call(obj, 1, 2)`
+
+bind：`let bindFn = fn.bind(obj)；  bindFn(1, 2)`
+
+**小结：** 
+
+- 三者都是改变函数的this指向
+- 三者第一个参数都是this要指向的对象，如果没有这个参数，或者参数为`undefind`或`null`，则默认指向全局window
+- 三者都可以传参，但`apply`传入的是数组，而`call`是参数列表，并且`apply`和`call`是一次性传入参数，`bind`可以分为多次传入
+- `bind`是返回绑定this之后的函数，`call`、`apply`则是立即执行
+
+
+
+### 浏览器存储方式及区别
+
+- cookie
+- sessionStorage
+- localStorage
+
+**区别**：
+
+- 储存大小：`cookie`数据大小不能超过4K，`sessionStorage`和`loaclStorage`可以达到5或更大
+- 存储时间：`localstorage`存储持久数据，浏览器关闭后数据不会丢失，除非主动删除数据；`sessionStorage`数据在当浏览器窗口关闭后自动删除；`cookie`在设置`cookie`过期时间前一直有效，即使窗口或浏览器关闭
+- 数据与服务器之间的交互方式：`cookie`的数据会自动传递到服务器，服务器端也可以写`cookie`到客服端；`sessionStorage`和`localStarage`不会自动把数据发送服务器，仅在本地保存
+
+
+
 ## HTTP系列
+
+### 在地址栏输入URL敲下回车会发生什么？
+
+- URL解析
+- DNS查询
+- TCP连接，三次握手
+- 发送HTTP请求
+- 响应请求
+- 页面渲染
+
+
+
+
+
+## webpack系列
+
+### webpack的构建流程
+
+- 初始化流程：从配置文件中读取参数和变量，并初始化需要使用的插件和配置等执行环境所需要的参数
+- 编译构建流程：从Entry出发，针对每个module串行调用对应的Loader去编译文件内容，再找到该module所依赖的module，递归的进行编译处理
+- 输出流程：对编译后的module组合成Chunk，再将Chunk转换成文件，输出到文件系统dist目录
+
+
+
+
+
+## CSS系列
+
+### CSS预编译语言有哪些？区别是什么？
+
+- less
+- sass
+- stylus
+
+特性：
+
+- 变量：less用@符号声明变量；sass用$符号声明变量；stylus不需要符号声明变量
+
+  ​           less和sass变量与值之间用:号；stylus变量与值之间用=号
+
+- 作用域：sass不存在全局变量
+
+- 混入（Mixins)：可以在Mixins中设置参数
+
+- 嵌套： less需要用{}包裹，sass和stylus可以不需要{}包裹
+
+- 模块化
