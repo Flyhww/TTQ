@@ -40,12 +40,27 @@ MVVM表示的是Model-View-ViewModel
 - 事件绑定 v-on
 - 双向数据绑定 v-model
 
-#### 三、Vue跟传统开发的区别
+#### 三、响应式的核心原理
+
+**vue2.0X**
+
+- 当你把一个普通的JavaScript对象传入Vue实例作为`data`选项，Vue将遍历此对象所有的`property`，并使用`Object.defineProperty`把这些`property`全部转为`getter/setter`
+- `Object.defineProperty`是ES5中一个无法shim的特性，这也就是Vue不支持IE8以及更低版本浏览器的原
+
+**vue3.0X**
+
+-  当我们从一个组件的 `data` 函数中返回一个普通的 JavaScript 对象时，Vue 会将该对象包裹在一个带有 `get` 和 `set` 处理程序的 [Proxy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy) 中 
+-  `Proxy` 是在 ES6 中引入的，它使 Vue 3 避免了 Vue 早期版本中存在的一些响应性问题。 
+-  `Proxy` IE 不支持， 性能由浏览器优化
+
+
+
+#### 四、Vue跟传统开发的区别
 
 - Vue所有的界面事件，都只是操作数据的，Jquery操作DOM
 - Vue所有数据的变动，都是根据数据自动绑定出来的，Jquery操作DOM
 
-#### 四、Vue和React对比
+#### 五、Vue和React对比
 
 ##### 相同点
 
@@ -92,10 +107,14 @@ MVVM表示的是Model-View-ViewModel
 
 ### Vue Router
 
+- 动态路由
+- 嵌套路由
+- 编程式导航
+
 #### 模式：
 
-- hash：URL中#号后面的内容作为路径地址
-- history
+- hash：URL中#号后面的内容作为路径地址，基于锚点和onHashChange事件
+- history：基于History API，history.pushState()  history.replaceState() ，History需要服务器的支持
 
 
 
@@ -187,7 +206,7 @@ MVVM表示的是Model-View-ViewModel
 
 
 
-### 原型和原项链
+### 原型和原型链
 
 怎么获取一个对象的原型？
 
