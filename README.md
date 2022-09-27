@@ -10,4 +10,7 @@ npm install pnpm -g  (已经安装pnpm 请忽略)
 pnpm i 
 
 ## 启动服务
-pnpm run dev 或 pnpm dev
+pnpm run docs:dev
+
+##打包部署
+pnpm run docs:build
