@@ -9,5 +9,5 @@ npm install pnpm -g  (已经安装pnpm 请忽略)
 ## 安装依赖
 pnpm i 
 
-# 启动服务
+## 启动服务
 pnpm run dev 或 pnpm dev
