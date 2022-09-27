@@ -12,5 +12,5 @@ pnpm i
 ## 启动服务
 pnpm run docs:dev
 
-##打包部署
+## 打包部署
 pnpm run docs:build
