@@ -10,6 +10,9 @@ module.exports = {
   description: '这是我的第一个 VuePress 站点',
   head: [['link', { rel: 'icon', href: '/images/logo.png' }]],
   themeConfig: {
+    nav: [
+      {text: '指南',link:'/guide/install/install'}
+    ],
   },
   theme: defaultTheme({
     // 在这里进行配置
