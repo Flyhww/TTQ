@@ -107,6 +107,32 @@ Object.getPrototypeOf
 
 
 
+### 赋值与深浅拷贝的区别
+
+**赋值：**
+
+- 基本类型：赋值后两个数据互不影响
+- 引用数据类型：赋址，两个变量指向同一个地址，同一个对象，相互之间有影响
+
+**浅拷贝：**
+- 基本类型：值不会被改变
+- 引用数据类型：值会跟随改变
+
+**深拷贝：**
+- 两个对象互不影响
+
+传送门：https://juejin.cn/post/6844903941629542408
+
+
+
+
+
+### setTimeout 和 setInterval 的区别
+
+- setTimeout: **只执行一次**，在指定时间内延迟执行函数或表达式，执行过后便会停止
+- setInterval: **重复执行**，重复调用一个函数或执行一个代码块，在每次调用之间具有固定的时间延迟
+
+
 ### 数组方法
 
 | 数组分类/标准 | 改变自身方法                                     | 不改变自身方法                                               | 遍历方法（不改变自身）                                  |
@@ -147,6 +173,127 @@ obj instanceof Array
 ```
 Array.prototype.isPrototypeOf(obj)
 ```
+
+
+
+### 数组去重的方式有哪些？
+
+```
+ let arr = [1, 2, 2, 3, 3, 4, 5, 5, 6,]
+```
+
+- 利用Set()+Array.from()
+
+  `Set`对象：是**值的集合**，你可以按照插入的顺序**迭代**它的元素。 Set中的元素只会**出现一次**，即Set中的**元素是唯一的**。
+
+  `Array.from()` 方法：对一个**类似数组**或**可迭代对象**创建一个新的，浅拷贝的数组实例。
+
+  ```
+  console.log(Array.from(new Set(arr)))
+  ```
+
+- 利用两层循环+数组的splice方法
+
+  此方法对NaN是无法进行去重的，因为进行比较时`NaN !== NaN`。
+
+  ```
+    function forArr () {
+      for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j <= arr.length; j++) {
+          if (arr[i] === arr[j]) {
+            arr.splice(j, 1)
+            j--
+          }
+        }
+      }
+    }
+  ```
+
+- 利用数组的indexOf方法
+
+  indexOf() 方法：返回调用它的String对象中第一次出现的指定值的索引，从 fromIndex 处进行搜索。如果未找到该值，则返回 -1。
+
+  ```
+    function indexOfArr() {
+      let newArr = []
+      arr.forEach(i => {
+        if (newArr.indexOf(i) === -1) {
+          newArr.push(i)
+        }
+      })
+      console.log(newArr)
+    }
+  ```
+
+- 利用数组的includes方法
+
+  includes()方法：用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回true，否则返回false。
+
+  ```
+    function includesArr () {
+      let newArr = []
+      arr.forEach(i => {
+        if (!newArr.includes(i)) {
+          newArr.push(i)
+        }
+      })
+      console.log(newArr)
+    }
+  ```
+
+- 利用数组的filter()+indexOf()
+
+  filter方法会对满足条件的元素存放到一个新数组中，结合indexOf方法进行判断
+
+  ```
+    function filterIndexOfArr() {
+      return arr.filter((i, index) => {
+        return arr.indexOf(i) === index
+      })
+    }
+    let result = filterIndexOfArr()
+    console.log(result)
+  ```
+
+- 利用Map()
+
+  Map对象是JavaScript提供的一种数据结构，结构为键值对形式，将数组元素作为map的键存入，然后结合`has()`和`set()`方法判断键是否重复。
+
+  ```
+    function mapArr() {
+      const map = new Map()
+      const newArr = []
+      arr.forEach(i => {
+        if (!map.has(i)) {   // has()用于判断map是否包为i的属性值
+          map.set(i, true)   // 使用set()将i设置到map中，并设置其属性值为true
+          newArr.push(i)
+        }
+      })
+      return newArr
+    }
+    let result = mapArr()
+    console.log(result)
+  ```
+
+- 利用对象 
+
+  主要是利用了对象的属性名不可重复这一特性。
+
+  ```
+    function objArr() {
+      let newArr = []
+      let obj = {}
+      arr.forEach(i => {
+        if (!obj[i]) {
+          newArr.push(i)
+          obj[i] = true
+        }
+      })
+      console.log(newArr)
+    }
+  ```
+
+  
 
 
 
@@ -299,6 +446,19 @@ MVVM表示的是Model-View-ViewModel
 
 
 
+
+
+### 为什么key 值不建议用index？
+
+- 用 index 作为 key 时，在对数据进行，逆序添加，逆序删除等破坏顺序的操作时，会产生没必要的真实 DOM更新，从而导致效率低
+- 用 index 作为 key 时，如果结构中包含输入类的 DOM，会产生错误的 DOM 更新
+- 在开发中最好每条数据使用唯一标识固定的数据作为 key，比如后台返回的 ID，手机号，身份证号等唯一值
+- 如果不对数据进行逆序添加 逆序删除破坏顺序的操作， 只用于列表展示的话 使用index 作为Key没有毛病
+
+
+
+
+
 ### 一般在哪个生命周期请求异步数据
 
 可以在钩子函数 created、beforeMount、mounted 中调用，因为这三个钩子函数中，data已经创建，可以将服务端返回的数据进行赋值。
@@ -385,6 +545,8 @@ slot又名插槽，是Vue的内容分发机制，组件内部的模板引擎使�
 - max：数字，最多可以缓存多少组件实例
 
 **注意**：keep-alive 包裹动态组件时，会缓存不活动的组件实例
+
+传送门：https://juejin.cn/post/6844903918313406472
 
 
 
