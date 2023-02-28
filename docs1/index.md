@@ -1,5 +1,15 @@
 ## CSS系列
 
+### rem 和 em 的区别？
+
+**rem:** 根据html根节点来计算的
+
+**em:** 根据父级元素的字体大小计算的
+
+
+
+
+
 ### CSS预编译语言有哪些？区别是什么？
 
 - less
@@ -26,7 +36,7 @@
 
 ## JavaScript系列
 
-### 闭包
+### 闭包3
 
 - **闭包是指有权访问另一个函数作用域中变量的函数**，创建闭包的最常见的方式就是在一个函数内创建另一个函数，创建的函数可以访问到当前函数的局部变量。
 - 可以在另一个作用域中调用一个函数的内部函数并访问到该函数的作用域中的成员
@@ -664,6 +674,8 @@ const router = new Router({
 
 ####  Vue-router 路由守卫有哪些
 
+  路由守卫就是路由跳转过程中的一些钩子函数
+
 - 全局前置/钩子：beforeEach、beforeResolve、afterEach
 - 路由独享的守卫：beforeEnter( to, from, next)
 - 组件内的守卫：beforeRouteEnter、beforeRouteUpdate、beforeRouteLeave
@@ -887,6 +899,12 @@ obj2.a =  null
 
 
 
+### 小程序rpx的理解
+
+不同设备屏幕大小不同，为了实现屏幕的自动适配，rpx把所有设备的屏幕，在宽度上分为750份，（即当前屏幕宽度为750px）。小程序在不同设备上运行时，会自动把rpx的样式单位转换成对于像素单位来渲染，从而实现屏幕适配。
+
+
+
 ## uni-app系列
 
 ### uni-app升级APP
@@ -998,13 +1016,17 @@ obj2.a =  null
 
 
 
-### 宏任务和微任务
-
-**微任务**： promise 的回调、node 中的 process.nextTick 、对 Dom 变化监听的 MutationObserver。
-
-**宏任务**： script 脚本的执行、setTimeout ，setInterval ，setImmediate 一类的定时事件，还有如 I/O 操作、UI 渲染等。
 
 
+### 事件循环（Event loop）
+
+js主线程不断地循环往复的从任务队列中读取任务，执行任务，这种运行机制称为事件循环。
+
+浏览器的事件循环分为宏任务和微任务：
+
+**宏任务**： 回调函数、script 脚本的执行、setTimeout ，setInterval ，setImmediate 一类的定时事件，还有如 I/O 操作、UI 渲染等。
+
+**微任务**： promise 的回调、async/await、node 中的 process.nextTick 、对 Dom 变化监听的 MutationObserver。
 
 
 
